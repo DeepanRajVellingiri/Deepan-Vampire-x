@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { HelpCircle, Plus, Minus, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface FAQItem {
   question: string;
@@ -65,9 +65,10 @@ const faqs: FAQItem[] = [
       <div className="space-y-2">
         <p>The approval timeline varies based on the request complexity:</p>
         <ul className="list-disc pl-5 space-y-1">
-          <li>Standard requests: 1-3 business days</li>
-          <li>Requests requiring API scans: 1-3 business days</li>
-          <li>Complex requests with multiple approvers: 1-3 business days</li>
+          <li>Standard requests: 3-5 business days</li>
+          <li>Requests requiring GLR: 5-7 business days</li>
+          <li>Requests requiring API scans: Additional 2-3 days</li>
+          <li>Complex requests with multiple approvers: 7-10 business days</li>
         </ul>
       </div>
     )

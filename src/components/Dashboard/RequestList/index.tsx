@@ -32,12 +32,28 @@ export function RequestList({ requests }: RequestListProps) {
     navigate('/', { state: { revisePermission: statusModal?.permission } });
   };
 
-  const getRevisionVersion = (request: Request) => {
-    const revisionCount = request.history.filter(h => 
-      h.comment?.includes('Request resubmitted for approval')
-    ).length;
+  const getRequestDisplayId = (request: Request) => {
+    // Find all revision entries in history
+    const revisions = request.history.filter(h => 
+      h.stage === 'System' && 
+      h.comment?.includes('Request revision v')
+    );
     
-    return revisionCount > 0 ? `-v${revisionCount}` : '';
+    // Get the latest revision number
+    const currentVersion = revisions.length > 0 
+      ? revisions[revisions.length - 1].comment?.match(/v(\d+)/)?.[1]
+      : null;
+
+    return (
+      <div className="flex items-baseline gap-2">
+        <span className="font-medium">{request.id}</span>
+        {currentVersion && (
+          <span className="text-sm text-gray-500">
+            -v{currentVersion}
+          </span>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -49,14 +65,9 @@ export function RequestList({ requests }: RequestListProps) {
               <div className="flex items-center space-x-3">
                 <StatusBadge status={request.status} />
                 <div className="flex flex-col">
-                  <div className="flex items-center space-x-2">
-                    <h3 className="text-lg font-medium text-gray-900">
-                      {request.id}
-                      <span className="text-sm font-normal text-gray-500">
-                        {getRevisionVersion(request)}
-                      </span>
-                    </h3>
-                  </div>
+                  <h3 className="text-lg font-medium text-gray-900">
+                    {getRequestDisplayId(request)}
+                  </h3>
                 </div>
               </div>
               <button

@@ -1,4 +1,5 @@
-import { Clock, CheckCircle2, XCircle, Activity, Cog } from 'lucide-react';
+import { BarChart2, Clock, CheckCircle2, XCircle, Activity, Cog } from 'lucide-react';
+import type { Request } from '../Dashboard/types';
 import type { FilterState } from '../Dashboard/types';
 
 interface RequestMetricsProps {
